@@ -5,137 +5,56 @@ Template Name: Gallery
 
 <?php get_header();?>
 
-
-<section class="wrap-page">
-<h3>Resturants in zagreb</h3>
-
-
+<?php get_header(); ?>
+ 
 <div class="container">
-
- <div class="main">
-
-
-
-
-<div class="row">
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/zagreb.jpg" alt="zagreb"  style="width:100% ; height:200px">
-      <h3><a href="http://localhost/wordpress/zagreb/">Zagreb</a></h3>
-      <p>Main catedral in city center</p>
-    </div>
-  </div>
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/dubravkin_put.jpg" alt="put" style="width:100% ; height:200px">
-      <h3><a href="http://localhost/wordpress/dubravkin-put/">Dubravkin put</a></h3>
-      <p>Perfectly decorated place</p>
-    </div>
-  </div>
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/le_bistro.jpg" alt="bistro" style="width:100% ; height:200px">
-      <h3><a href="http://localhost/wordpress/le-bistro/">Le Bistro</a></h3>
-      <p>In the Esplanada hotel</p>
-    </div>
-  </div>
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/mano2.jpg" alt="mano" style="width:100%; height:200px">
-      <h3><a href="http://localhost/wordpress/mano-2/">Mano 2</a></h3>
-      <p>Perfect for dinners</p>
-    </div>
-  </div>
+		
+		<div class="center">         
+          <main id="main" class="site-main" role="main">
+     <?php
+     $paged = (get_query_var( 'paged' )) ? get_query_var( 'paged' ) : 1;
+     $args = array(
+         'post_type' => 'post',
+         'post_status' => 'publish',
+         'category_name' => 'gallery',
+         'orderby'        => 'name',
+          'order'          => 'ASC',
+          'hide_empty'     => 1,
+          'depth'          => 1,
+         'posts_per_page' => '-1',
+         'paged' => $paged,
+     );
+     $arr_posts = new WP_Query( $args );
+  
+     if ( $arr_posts->have_posts() ) :
+  
+         while ( $arr_posts->have_posts() ) :
+             $arr_posts->the_post();
+             ?>
+             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                 <?php
+                 if ( has_post_thumbnail()) :?>
+                 <img src="<?php the_post_thumbnail_url('blog-large');?>" alt="<?php the_title();?>" class="img-fluid mb-3 img-thumbnail mr-4">;
+                 <php endif;
+                 ?>
+                 <header class="entry-header">
+                     <h1 class="entry-title"><?php the_title(); ?></h1>
+                 </header>
+                 <div class="entry-content">
+                     <?php the_excerpt(); ?>
+                     <a href="<?php the_permalink();?>" class="btn btn-success">Read more</a>
+                 </div>
+             </article>
+             <p><?php the_field('description'); ?></p>
+        <p><?php the_field('filmed_with'); ?></p>
+              
+              <?php
+         endif;endwhile;
+        
+     endif;
+     ?>
+          </main>
+        </div>
 </div>
-
-<div class="row">
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/cakovec.jpg" alt="cakovec"  style="width:100% ; height:200px">
-      <h3><a href="http://localhost/wordpress/cakovec/">Čakovec</a></h3>
-      <p>City center</p>
-    </div>
-  </div>
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/mala.jpg" alt="mala" style="width:100% ; height:200px">
-      <h3><a href="http://localhost/wordpress/mala-hiza/">Mala Hiža</a></h3>
-      <p>Perfectly decorated place</p>
-    </div>
-  </div>
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/osijek.jpeg" alt="osijek" style="width:100% ; height:200px">
-      <h3><a href="http://localhost/wordpress/le-bistro/">Osijek</a></h3>
-      <p>City harbour</p>
-    </div>
-  </div>
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/waldinger.jpg" alt="wald" style="width:100%; height:200px">
-      <h3><a href="http://localhost/wordpress/waldinger/">Restoran Club Waldinger</a></h3>
-      <p>Perfect for dinners</p>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/opatija.jpg" alt="opatija"  style="width:100% ; height:200px">
-      <h3><a href="http://localhost/wordpress/opatija/">Opatija</a></h3>
-      <p>Drone picture of city</p>
-    </div>
-  </div>
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/bevanda.jpg" alt="bevanda" style="width:100% ; height:200px">
-      <h3><a href="http://localhost/wordpress/bevanda/">Bevanda</a></h3>
-      <p>Perfectly decorated place</p>
-    </div>
-  </div>
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/zadar.jpg" alt="zadar" style="width:100% ; height:200px">
-      <h3><a href="http://localhost/wordpress/zadar/">Zadar</a></h3>
-      <p>Old town center</p>
-    </div>
-  </div>
-  <div class="column">
-    <div class="content">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/fosa.jpg" alt="fosa" style="width:100%; height:200px">
-      <h3><a href="http://localhost/wordpress/fosa/">Foša</a></h3>
-      <p>Perfect for dinners</p>
-    </div>
-
-    
-  </div>
-</div>
-
-
-</div> 
-<div class="row">
-<div class="col-lg-6 ">
-<div class="content">
-<img src="<?php echo get_template_directory_uri(); ?>/assets/img/sibenik.jpg" alt="sibenik" style="width:100%; height:200px">
-      <h3><a href="http://localhost/wordpress/sibenik/">Šibenik</a></h3>
-      <p>City during sunset</p>
-    </div>
-
-
-
-</div>
-<div class="col-lg-6 ">
-<div class="content">
-<img src="<?php echo get_template_directory_uri(); ?>/assets/img/pelegrini.jpg" alt="pelegrini" style="width:100%; height:200px">
-      <h3><a href="http://localhost/wordpress/pelegrini/">Pelegrini</a></h3>
-      <p>Perfect for dinners</p>
-    </div>
-    </div> 
-
-</div>
-
-</div>
-</section>
-
+        
 <?php get_footer();?>

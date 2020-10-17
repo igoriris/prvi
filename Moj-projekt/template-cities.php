@@ -2,56 +2,58 @@
 /*
 Template Name: Cities
 */ ?>
-<?php get_header();?>
-
-<section class="page-wrap">
+<?php get_header(); ?>
+ 
 <div class="container">
-     <div class="center">
-            <h3>Here you will find one of the most popular cities in Croatia for tourists. And you will find out the best restaurants in those cities.</h3>
-
-            <div class="row"> 
-            <div class="col-lg-6">
-<h3>Countyside cities</h3>
-
-<h4><a href="http://localhost/wordpress/category/zagreb/" >Zagreb</a></h4>
-<img src="<?php echo get_template_directory_uri(); ?>/assets/img/zagreb.jpg" alt="zagreb" class="center" style="width:100%;height:250px">
-
-
-
-<h4><a href="http://localhost/wordpress/category/cakovec/" >Čakovec</a></h4>
-
-<img src="<?php echo get_template_directory_uri(); ?>/assets/img/cakovec.jpg" alt="cakovec" class="center" style="width:100%;height:250px">
-
-<h4><a href="http://localhost/wordpress/category/osijek/" >Osijek</a></h4>
-<img src="<?php echo get_template_directory_uri(); ?>/assets/img/osijek.jpeg" alt="osijek" class="center" style="width:100%;height:250px">
-
-
-
-
-
-             </div>
-
-
-             <div class="col-lg-6">
+		
+		<div class="center">         
+          <main id="main" class="site-main" role="main">
+     <?php
+     $paged = (get_query_var( 'paged' )) ? get_query_var( 'paged' ) : 1;
+     $args = array(
+         'post_type' => 'post',
+         'post_status' => 'publish',
+         'category_name' => 'cities',
+         'orderby'        => 'name',
+          'order'          => 'ASC',
+          'hide_empty'     => 1,
+          'depth'          => 1,
+         'posts_per_page' => '-1',
+         'paged' => $paged,
+     );
+     $arr_posts = new WP_Query( $args );
+  
+     if ( $arr_posts->have_posts() ) :
+  
+         while ( $arr_posts->have_posts() ) :
+             $arr_posts->the_post();
+             ?>
+             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                 <?php
+                 if ( has_post_thumbnail()) :?>
+                 <img src="<?php the_post_thumbnail_url('blog-large');?>" alt="<?php the_title();?>" class="img-fluid mb-3 img-thumbnail mr-4">;
+                 <php endif;
+                 ?>
+                 <header class="entry-header">
+                     <h1 class="entry-title"><?php the_title(); ?></h1>
+                 </header>
+                 <div class="entry-content">
+                     <?php the_excerpt(); ?>
+                     <a href="<?php the_permalink();?>" class="btn btn-success">Read more</a>
+                 </div>
+             </article>
              
-<h3>Mediteran cities</h3>
+              
+              <?php
+         endif;endwhile;
+        
+     endif;
+     ?>
 
-<h4><a href="http://localhost/wordpress/category/opatija/" >Opatija</h4>
-<img src="<?php echo get_template_directory_uri(); ?>/assets/img/opatija.jpg" alt="opatija" class="center" style="width:100%;height:250px">
-
-<h4><a href="http://localhost/wordpress/category/zadar/" >Zadar</h4>
-<img src="<?php echo get_template_directory_uri(); ?>/assets/img/zadar.jpg" alt="zadar" class="center" style="width:100%;height:250px">
-
-<h4><a href="http://localhost/wordpress/category/sibenik/" >Šibenik</h4>
-<img src="<?php echo get_template_directory_uri(); ?>/assets/img/sibenik.jpg" alt="sibenik" class="center" style="width:100%;height:250px">
-
-
-
-             </div>
+    
+  
+     </main><!-- .site-main -->
+ </div><!-- .content-area -->
 </div>
-</div>
-
-</section>
-
-
-<?php get_footer();?>
+  
+ <?php get_footer(); ?>

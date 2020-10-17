@@ -16,7 +16,10 @@
 
 
     <div class="container">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo1.jpg" alt="contact" class="header-image" style="width:70px;height:60px";>
+    <?php 
+   $custom_logo_id = get_theme_mod( 'custom_logo' );
+   $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+      ?><img src="<?php echo $image[0]; ?>" alt="">
     <span>               </span>
         <?php
             wp_nav_menu(
@@ -28,6 +31,10 @@
                 )
             ); ?>
             <span>  </span>
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo1.jpg" alt="contact" class="header-image" style="width:70px;height:60px";>
+            <?php 
+   $custom_logo_id = get_theme_mod( 'custom_logo' );
+   $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+      ?><img src="<?php echo $image[0]; ?>" alt="">
     </div>
 </header>
+
